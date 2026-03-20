@@ -133,17 +133,17 @@ class LUTEditor:
 
         # --- LUT state ---
         self.voltage_patterns: Dict[int, List[str]] = {
-            0: ["VSS", "VSH1", "VSS", "VSH1"],  # B->B
-            1: ["VSL", "VSL", "VSL", "VSS"],  # B->W
-            2: ["VSH1", "VSS", "VSH1", "VSS"],  # W->B
-            3: ["VSS", "VSL", "VSS", "VSL"],  # W->W
+            0: ["VSH1", "VSL", "VSH1", "VSH1"],  # B->B
+            1: ["VSL", "VSH1", "VSL", "VSL"],  # B->W
+            2: ["VSL", "VSH2", "VSL", "VSH1"],  # W->B
+            3: ["VSH2", "VSL", "VSH2", "VSL"],  # W->W
         }
         self.timing_groups: List[List[int]] = [
-            [4, 4, 0, 0, 0],
-            [2, 2, 0, 0, 0],
+            [1, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0],
             *[[0, 0, 0, 0, 0]] * 8,
         ]
-        self.frame_rate = 0x88
+        self.frame_rate = 0x86
         self.voltages = {
             "VGH": 0x17,
             "VSH1": 0x41,
@@ -771,13 +771,13 @@ class LUTEditor:
         if not messagebox.askyesno("Reset", "Reset to default LUT?"):
             return
         self.voltage_patterns = {
-            0: ["VSS", "VSH1", "VSS", "VSH1"],
-            1: ["VSL", "VSL", "VSL", "VSS"],
-            2: ["VSH1", "VSS", "VSH1", "VSS"],
-            3: ["VSS", "VSL", "VSS", "VSL"],
+            0: ["VSH1", "VSL", "VSH1", "VSH1"],
+            1: ["VSL", "VSH1", "VSL", "VSL"],
+            2: ["VSL", "VSH2", "VSL", "VSH1"],
+            3: ["VSH2", "VSL", "VSH2", "VSL"],
         }
-        self.timing_groups = [[4, 4, 0, 0, 0], [2, 2, 0, 0, 0], *[[0, 0, 0, 0, 0]] * 8]
-        self.frame_rate = 0x88
+        self.timing_groups = [[1, 1, 1, 1, 0], [0, 0, 0, 0, 0], *[[0, 0, 0, 0, 0]] * 8]
+        self.frame_rate = 0x86
         self.voltages = {
             "VGH": 0x17,
             "VSH1": 0x41,
